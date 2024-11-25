@@ -1,3 +1,9 @@
+/*
+    File: BinaryTree.h
+    Author: J.T. Brooks
+    Date: 11/14/24
+    Purpose: Header file containing templated Binary Tree class.
+*/
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 #include <iostream>
@@ -5,6 +11,7 @@ template <typename T>
 class BinaryTree
 {
 private:
+    //TreeNode structure acts as node for tree
     struct TreeNode
     {
 
@@ -30,18 +37,20 @@ private:
         }
     };
 
-    TreeNode *root;
+    TreeNode *root; //root ptr
 
-    void destroySubTree(TreeNode* nodePtr)
+    //can be use to destroy parts of tree... also called in destructor
+    void destroySubTree(TreeNode *nodePtr)
     {
-            if (nodePtr->left)
-                destroySubTree(nodePtr->left);
-            if (nodePtr->right)
-                destroySubTree(nodePtr->right);
-            
-            delete nodePtr;
+        if (nodePtr->left)
+            destroySubTree(nodePtr->left);
+        if (nodePtr->right)
+            destroySubTree(nodePtr->right);
+
+        delete nodePtr;
     }
 
+    //recursively searches tree for appropriate spot for the new node
     void Insert(TreeNode *newNode, TreeNode *nodePtr)
     {
         if (!root)
@@ -74,6 +83,7 @@ private:
         }
     }
 
+    //prints tree from least to most
     void displayInOrder(TreeNode *nodePtr) const
     {
         if (nodePtr)
@@ -85,16 +95,19 @@ private:
     }
 
 public:
+    //constructor
     BinaryTree()
     {
         TreeNode *root;
     }
 
+    //destructor
     ~BinaryTree()
     {
         destroySubTree(root);
     }
 
+    //creates the new node and sends it to Insert with the root
     void insertNode(T val)
     {
         TreeNode *newNode;
@@ -103,18 +116,21 @@ public:
         nodePtr = root;
         Insert(newNode, nodePtr);
     }
-
+    
+    //sends root to display function
     void displayInOrder()
     {
         displayInOrder(root);
     }
 
+    //getter
     TreeNode *getRoot()
     {
         return root;
     }
 
-    bool searchNode(TreeNode *nidePtr, T val)
+    //searches for chosen node and returns true if found
+    bool searchNode(T val)
     {
         TreeNode *nodePtr = root;
 

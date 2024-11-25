@@ -1,3 +1,9 @@
+/*
+    File: Pokemon.h
+    Author: J.T. Brooks
+    Date: 11/14/24
+    Purpose: Header file containing Pokemon class
+*/
 #ifndef POKEMON_H
 #define POKEMON_H
 #include <string>
@@ -11,12 +17,14 @@ private:
     string name;
 
 public:
+    //constructor
     Pokemon()
     {
         ID = "0";
         name = "None";
     }
 
+    //setters
     void setID(string newID)
     {
         ID = newID;
@@ -27,6 +35,7 @@ public:
         name = newName;
     }
 
+    //getters
     string getID()
     {
         return ID;
@@ -37,7 +46,8 @@ public:
         return name;
     }
 
-    friend ostream &operator<<(ostream &os, Pokemon& poke)
+    //overloaded comparison & output operators
+    friend ostream &operator<<(ostream &os, Pokemon &poke)
     {
         os << "Pokemon Index Number: " << setw(10) << left << poke.ID;
         os << "Name: " << poke.name << endl;
@@ -46,12 +56,12 @@ public:
 
     bool operator<(const Pokemon &poke)
     { // compares by Pokemon ID
-        return (stoi(ID) < stoi(poke.ID));
+        return (stoi(ID) < stoi(poke.ID)); //stoi() converts string to int
     }
 
     bool operator==(const Pokemon &poke)
     { // compares by Pokemon ID
-        return (stoi(ID) == stoi(poke.ID));
+        return (stoi(ID) == stoi(poke.ID)); //stoi() converts string to int
     }
 };
 #endif

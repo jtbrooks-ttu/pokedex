@@ -1,8 +1,15 @@
+/*
+    File: Program3.cpp
+    Author: J.T. Brooks
+    Date: 11/14/24
+    Purpose: Driver file. Includes main and program flow.
+*/
 #include "Pokemon.h"
 #include "BinaryTree.h"
 #include <fstream>
 
-int main(){
+int main()
+{
     BinaryTree<Pokemon> pokedex;
     ifstream inFile;
     string name;
@@ -13,31 +20,39 @@ int main(){
     inFile.open("pokedex.txt");
     cout << endl;
     cout << string(20, '*') << "POKEDEX:" << string(20, '*');
-    cout << endl << endl;
+    cout << endl
+         << endl;
 
-    while(getline(inFile, index, '#')){
+    //file extraction
+    while (getline(inFile, index, '#'))
+    {
         getline(inFile, name, '#');
         temp.setID(index);
         temp.setName(name);
-        if(!pokedex.searchNode(pokedex.getRoot(), temp)){
+        if (!pokedex.searchNode(temp)) //node is not in tree
+        {
             cout << "Inserting Pokemon with index ";
             cout << temp.getID() << " into the Pokedex." << endl;
             pokedex.insertNode(temp);
             numPokemon++;
         }
-        else{
+        else //node already existed in tree
+        {
             cout << "Oops!  The Pokemon with index ";
             cout << temp.getID() << " is already in the Pokedex." << endl;
         }
     }
 
-    cout << "\n\n" << numPokemon << " Pokemon have been added to the Pokedex!" << endl;
+    //prints loaded pokemon
+    cout << "\n\n"
+         << numPokemon << " Pokemon have been added to the Pokedex!" << endl;
 
     cout << "\n\n";
     cout << endl;
     cout << string(20, '*') << "POKEDEX:" << string(20, '*');
-    cout << endl << endl;
-
+    cout << endl
+         << endl;
+    //prints in ascending order by ID
     pokedex.displayInOrder();
 
     inFile.close();
